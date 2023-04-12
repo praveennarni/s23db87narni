@@ -1,8 +1,8 @@
 var express = require('express');
 var router = express.Router();
 // Require controller modules.
-var api_controller = require('../controllers/api');
-var gift_controller = require('../controllers/gifts');
+var api_controller = require('../controller/api');
+var gift_controller = require('../controller/gifts');
 /// API ROUTE ///
 // GET resources base.
 router.get('/', api_controller.api);

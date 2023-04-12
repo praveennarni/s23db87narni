@@ -74,26 +74,29 @@ await gift.deleteMany();
 let instance1 = new
 gift({gift_name:"Diamond", numof_gifts:1,
 gift_value:"Most Valuable"});
-instance1.save().then( function(err,doc) {
-if(err) return console.error(err);
-console.log("First object saved")
-});
+instance1.save().then(doc=> {
+//if(err) return console.error(err);
+console.log("First object saved")}
+).catch(err=>{
+  console.error(err)})
 
 let instance2 = new
 gift({gift_name:"Gold", numof_gifts:2,
 gift_value:"More Valuable"});
-instance2.save().then( function(err,doc) {
-if(err) return console.error(err);
-console.log("First object saved")
-});
-
+instance2.save().then(doc=> {
+//if(err) return console.error(err);
+console.log("First object saved")}
+).catch(err=>{
+  console.error(err)})
 let instance3 = new
 gift({gift_name:"Car", numof_gifts:1,
 gift_value:"Valuable"});
-instance3.save().then( function(err,doc) {
-if(err) return console.error(err);
-console.log("First object saved")
-});
+instance3.save().then(doc=> {
+//if(err) return console.error(err);
+console.log("First object saved")}
+).catch(err=>{
+  console.error(err)
+})
 }
 let reseed = true;
 if (reseed) { recreateDB();}

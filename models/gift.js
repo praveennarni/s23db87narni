@@ -4,5 +4,4 @@ gift_name: String,
 numof_gifts: Number,
 gift_value: String
 })
-module.exports = mongoose.model("gift",
-giftSchema)
+module.exports = mongoose.model("Gift",giftSchema)
