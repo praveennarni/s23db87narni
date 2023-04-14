@@ -17,4 +17,7 @@ router.put('/gifts/:id', gift_controller.gift_update_put);
 router.get('/gifts/:id', gift_controller.gift_detail);
 // GET request for list of all Gift items.
 router.get('/gifts', gift_controller.gift_list);
+
+// GET request for one costume.
+router.get('/gifts/:id', gift_controller.gift_detail);
 module.exports = router;
