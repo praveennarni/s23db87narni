@@ -43,17 +43,47 @@ exports.gift_detail = async function(req, res) {
         }
 //res.send('NOT IMPLEMENTED: Gift create POST');
 };
-// Handle Gift delete form on DELETE.
+
+
+// Handle Gift delete on DELETE.
 exports.gift_delete = async function(req, res) {
-    try{
-        theGifts = await gift.find();
-        res.send(theGifts);
-        }
-        catch(err){
-        res.status(500);
-        res.send(`{"error": ${err}}`);
-        }
-// res.send('NOT IMPLEMENTED: Gift delete DELETE ' + req.params.id);
+console.log("delete " + req.params.id)
+try {
+result = await gift.findByIdAndDelete( req.params.id)
+console.log("Removed " + result)
+res.send(result)
+} catch (err) {
+res.status(500)
+res.send(`{"error": Error deleting ${err}}`);
+}
+};
+
+// Handle a show one view with id specified by query
+exports.gift_view_one_Page = async function(req, res) {
+console.log("single view for id " + req.query.id)
+try{
+result = await gift.findById( req.query.id)
+res.render('giftdetail',
+{ title: 'Gift Detail', toShow: result });
+}
+catch(err){
+res.status(500)
+res.send(`{'error': '${err}'}`);
+}
+};
+
+// Handle building the view for creating a costume.
+// No body, no in path parameter, no query.
+// Does not need to be async
+exports.gift_create_Page = function(req, res) {
+console.log("create view")
+try{
+res.render('giftcreate', { title: 'Gift Create'});
+}
+catch(err){
+res.status(500)
+res.send(`{'error': '${err}'}`);
+}
 };
 // Handle Gift update form on PUT.
 exports.gift_update_put = async function(req, res) {
@@ -66,6 +96,26 @@ exports.gift_update_put = async function(req, res) {
         res.send(`{"error": ${err}}`);
         }
 // res.send('NOT IMPLEMENTED: Gift update PUT' + req.params.id);
+};
+
+// Handle Costume update form on PUT.
+exports.gift_update_put = async function(req, res) {
+console.log(`update on id ${req.params.id} with body
+${JSON.stringify(req.body)}`)
+try {
+let toUpdate = await gift.findById( req.params.id)
+// Do updates of properties
+if(req.body.gift_name)toUpdate.gift_name = req.body.gift_name;
+if(req.body.numof_gifts) toUpdate.numof_gifts = req.body.numof_gifts;
+if(req.body.gift_value) toUpdate.gift_value = req.body.gift_value;
+let result = await toUpdate.save();
+console.log("Sucess " + result)
+res.send(result)
+} catch (err) {
+res.status(500)
+res.send(`{"error": ${err}: Update for id ${req.params.id}
+failed`);
+}
 };
 
 

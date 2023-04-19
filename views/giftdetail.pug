@@ -1,0 +1,21 @@
+extends layout
+
+block content
+  h1= title
+  - let giftid = toShow._id
+  - let gift_name = toShow.gift_name
+  - let numof_gifts = toShow.numof_gifts
+  - let gift_value = toShow.gift_value
+  div
+    div.row
+        div(class='costumeAttr mr-3') Gift ID is:
+        div #{giftid}
+    div.row
+        div(class='costumeAttr mr-3') Gift Name is:
+        div #{gift_name}
+    div.row
+        div(class='costumeAttr mr-3') Number of Gifts is or are:
+        div #{numof_gifts}
+    div.row
+        div(class='costumeAttr mr-3') Gift Value is:
+        div #{gift_value}
