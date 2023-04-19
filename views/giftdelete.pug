@@ -1,0 +1,53 @@
+extends layout
+
+block content
+  h1= title
+  if (toShow == null)
+    h2 No instance to delete
+  else
+    - let giftid = toShow._id
+    - let gift_name = toShow.gift_name
+    - let numof_gifts = toShow.numof_gifts
+    - let gift_value = toShow.gift_value
+    - let actionid = "/resource/gifts/" + giftid
+    script.
+      let actionid = "#{actionid}"
+    div
+      div.row
+        div(class='giftAttr mr-3') Gift ID is:
+        div #{giftid}
+      div.row
+        div(class='giftAttr mr-3') Gift Name is:
+        div #{gift_name}
+      div.row
+        div(class='giftAttr mr-3') Number of Gifts is or are:
+        div #{numof_gifts}
+      div.row
+        div(class='giftAttr mr-3') Gift Value is:
+        div #{gift_value}
+      button(class="btn btn-danger m-2" onclick="deleteOnid()") Delete
+      button(class="btn btn-secondary m-2" onclick="cancel()") Cancel
+    script.
+      function cancel() {
+        // Go back to the home page for the costume collection
+        window.location.href='/gifts'
+      }
+    script.
+      function deleteOnid() {
+        console.log("starting delete")
+        // delete first
+        fetch(actionid, {
+          method: 'DELETE'   
+        }).then((resp) => {
+          return resp.json();  // or resp.text() or whatever the server sends
+        }).then((body) => {
+          alert("Delete succeeded")
+          window.location.href='/gifts'
+          // TODO handle body
+        }).catch((error) => {
+          // TODO handle error
+          alert("Delete failed " + error )
+        });
+      }
+
+

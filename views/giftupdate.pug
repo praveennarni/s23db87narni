@@ -1,0 +1,40 @@
+extends layout
+
+block content
+  h1= title
+  - let giftid = toShow._id
+  - let gift_name = toShow.gift_name
+  - let numof_gifts = toShow.numof_gifts
+  - let gift_value = toShow.gift_value
+  div.row(class='mb-2')
+        div.mr-1 ID is
+        div #{giftid}
+  - let actionid = "/resource/gifts/" + giftid
+    form(id='GiftForm', action= actionid, method="PUT")
+        div.form-group
+            label.giftAttr(for='gift_name') Gift Name
+            input#gift_name(type='text', name='gift_name', value= giftname )
+        div.form-group
+            label.giftAttr(for='numof_gifts') Number of Gifts
+            input#numof_gifts(type='number', name='numof_gifts', value= numofgifts )
+        div.form-group
+            label.giftAttr(for='gift_value') Gift Value
+            input#gift_value(type='text', name='gift_value', value= giftvalue )
+            input(type="submit")
+  script.
+    document.forms['GiftForm'].addEventListener('submit', (event) => {
+            event.preventDefault();
+            // TODO do something here to show user that form is being submitted
+            fetch(event.target.action, {
+            method: 'PUT',
+            body: new URLSearchParams(new FormData(event.target)) // event.target is the form
+            }).then((resp) => {
+            return resp.json(); // or resp.text() or whatever the server sends
+            }).then((body) => {
+            alert("Update succeded")
+            // TODO handle body
+            }).catch((error) => {
+            // TODO handle error
+            alert("Update failed " + error )
+            });
+            });

@@ -57,6 +57,19 @@ res.status(500)
 res.send(`{"error": Error deleting ${err}}`);
 }
 };
+    // Handle a delete one view with id from query
+    exports.gift_delete_Page = async function(req, res) {
+        console.log("Delete view for id " + req.query.id)
+        try{
+        result = await gift.findById(req.query.id)
+        res.render('giftdelete', { title: 'Gift Delete', toShow:
+        result });
+        }
+        catch(err){
+        res.status(500)
+        res.send(`{'error': '${err}'}`);
+        }
+        };
 
 // Handle a show one view with id specified by query
 exports.gift_view_one_Page = async function(req, res) {
@@ -100,8 +113,7 @@ exports.gift_update_put = async function(req, res) {
 
 // Handle Costume update form on PUT.
 exports.gift_update_put = async function(req, res) {
-console.log(`update on id ${req.params.id} with body
-${JSON.stringify(req.body)}`)
+console.log(`update on id ${req.params.id} with body ${JSON.stringify(req.body)}`)
 try {
 let toUpdate = await gift.findById( req.params.id)
 // Do updates of properties
@@ -131,6 +143,22 @@ res.status(500);
 res.send(`{"error": ${err}}`);
 }
 };
+
+// Handle building the view for updating a costume.
+// query provides the id
+exports.gift_update_Page = async function(req, res) {
+    console.log("update view for item "+req.query.id)
+    try{
+    let result = await gift.findById(req.query.id)
+    res.render('giftupdate', { title: 'Gift Update', toShow: result });
+    }
+    catch(err){
+    res.status(500)
+    res.send(`{'error': '${err}'}`);
+    }
+    };
+
+
 
 // for a specific Costume.
 exports.gift_detail = async function(req, res) {

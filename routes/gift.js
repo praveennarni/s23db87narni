@@ -8,3 +8,7 @@ router.get('/detail', gift_controlers.gift_view_one_Page);
 module.exports = router;
 /* GET create costume page */
 router.get('/create', gift_controlers.gift_create_Page);
+/* GET create update page */
+router.get('/update', gift_controlers.gift_update_Page);
+/* GET delete costume page */
+router.get('/delete', gift_controlers.gift_delete_Page);
