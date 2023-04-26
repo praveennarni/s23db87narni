@@ -1,16 +1,25 @@
 extends layout
 
 block content
-  h1= title
 
-  //- let items=[{gift_name:"Diamond",numof_gifts:1,gift_value:"Most Valuable"},{gift_name:"Gold",numof_gifts:2,gift_value:"More Valuable"},{gift_name:"Car",numof_gifts:1,gift_value:"Valuable"}]
-  - let items=results
+  - let gift = results
+  h1= title
+  - let create = `dispatch(\"/gifts/create\")`
+  button.btn(class="btn-info", onclick=create) Add new gifts
+
   div(class="container-fluid")
-   div(class="row")
-    each value,index in items
-      div(class="col-sm-2" onclick=`buy(${index})`)  #{value.gift_name} Gift, Number of Gifts is/are #{value.numof_gifts}, and it is #{value.gift_value}
-  script. 
-    function buy(index)
-    {
-      alert(`You purchased Item ${index+1}`)
+    div(class="row m-1")
+      each gifts in gift
+        - let destination = `dispatch(\"/gifts/update?id=${gifts._id}\")`
+        - let detail = `dispatch(\"/gifts/detail/?id=${gifts._id}")`
+        - let deletegifts = `dispatch(\"/gifts/delete/?id=${gifts._id}")`      
+        div(class="row-sm-2", class="m-1") 
+          | #{gifts.gift_name} (#{gifts.numof_gifts}) is #{gifts.gift_value}
+          button.btn(class="btn-primary ml-1", onclick=destination) Update
+          button.btn(class="btn-success", onclick=detail) Details
+          button.btn(class="btn-dark", onclick=deletegifts) Delete
+
+  script.
+    function dispatch(path){
+      window.location.href = path
     }
